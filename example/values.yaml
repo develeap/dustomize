@@ -1,0 +1,6 @@
+Base: alpine
+
+command:
+  copy: cp
+  delete: rm
+  add: touch
