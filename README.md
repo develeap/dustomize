@@ -7,17 +7,22 @@ This project is used to create powerful templates within Dockerfiles
 ## ⏏️ Options
 
 ```go
-Usage of dustomize:
-  -config string
-        Config definition
-  -export bool
-        Enable to export the resulted files
-  -folder string
-        Folder to parse
-  -output string
-        Output folder
-  -verbose bool
-        Enable to view logs
+A longer description that spans multiple lines and likely contains examples
+and usage of using your command. For example:
+
+Cobra is a CLI library for Go that empowers applications.
+This application is a tool to generate the needed files
+to quickly create a Cobra application.
+
+Usage:
+  dustomize parse [flags]
+
+Flags:
+  -c, --config string   Values file to read from.
+  -f, --file strings    Template files to parse.
+  -k, --folder string   Your templates directory to parse.
+  -h, --help            help for parse
+  -o, --output string   Export parsing to target folder.
 ```
 
 ## 📋 Example
@@ -39,8 +44,11 @@ RUN ls -la
 ```
 
 ```go
-// terminal command (root dir)
-go run . -folder example/dockerfiles/templates/ -config example/values.yaml -export -output example/dockerfiles/outputs
+// Install the CLI
+go install .
+
+// Run the CLI
+dustomize parse -c example/values.yaml -k example/dockerfiles/templates/
 ```
 
 ## ℹ️️ Requirements

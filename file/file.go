@@ -48,3 +48,21 @@ func FolderRead(folder string, files *[]File, verbose bool) error {
 
 	return nil
 }
+
+// Read a file and populate the Files struct
+func FileRead(file string, files *[]File, verbose bool) error {
+	data, err := ioutil.ReadFile(file)
+	if err != nil {
+		return err
+	}
+
+	newFile := File{
+		Name:    filepath.Base(file),
+		Path:    file,
+		Content: string(data),
+	}
+
+	*files = append(*files, newFile)
+
+	return nil
+}
