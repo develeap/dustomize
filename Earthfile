@@ -1,4 +1,4 @@
-VERSION 0.6
+VERSION 0.7
 FROM golang:1.20.0-alpine3.17
 WORKDIR app
 

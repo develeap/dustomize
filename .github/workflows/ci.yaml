@@ -28,10 +28,11 @@ jobs:
         with:
           version: v0.7.0
 
-      - name: Run lint
+      - name: Run test
         run: earthly +test
 
   build:
+    needs: [lint, test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -40,8 +41,16 @@ jobs:
         with:
           version: v0.7.0
 
-      - name: Run lint
+      - name: Run build
         run: earthly +build
+
+  release:
+    if: github.ref == 'refs/heads/main'
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run this step on main branch only
+        run: echo "This step is running on the main branch"
 
   # build:
   #   runs-on: ubuntu-latest
