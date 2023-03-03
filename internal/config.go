@@ -1,3 +1,4 @@
+// Package internal provides internal helper functions.
 package internal
 
 import (

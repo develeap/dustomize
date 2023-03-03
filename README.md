@@ -1,9 +1,10 @@
 # dustomize - Dockerfile templates
 
-![AppVeyor branch](https://img.shields.io/appveyor/build/develeap/dustomize/main)
+![GitHub Actions CI](https://github.com/develeap/dustomize/actions/workflows/ci.yaml/badge.svg?branch=main)
 ![GitHub repo size](https://img.shields.io/github/repo-size/develeap/dustomize)
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues-raw/develeap/dustomize)
 ![GitHub all releases](https://img.shields.io/github/downloads/develeap/dustomize/total)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 <img src="https://d1.awsstatic.com/acs/characters/Logos/Docker-Logo_Horizontel_279x131.b8a5c41e56b77706656d61080f6a0217a3ba356d.png" width="300px">
 
@@ -67,10 +68,6 @@ This is an open source project. Any contribution would be greatly appreciated!
 ## 🚩 Issues
 
 If you have found an issue, please report it on the [issue tracker](https://github.com/develeap/dustomize/issues)
-
-## 📝 LICENSE
-
-License is MIT
 
 ## Made with ❤️ in develeap
 

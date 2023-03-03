@@ -1,3 +1,4 @@
+// Package main provides the logic behind dustomize.
 package main
 
 import (

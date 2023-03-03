@@ -1,3 +1,4 @@
+// Package file provides populating file struct from reading folders/files.
 package file
 
 import (
