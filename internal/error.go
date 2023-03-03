@@ -17,6 +17,15 @@ var (
 	ErrBadFolder                = errors.New("Folder couldn't be read..")
 	ErrBadFile                  = errors.New("File couldn't be read..")
 	ErrBadExport                = errors.New("File couldn't be exported..")
+	ErrBadConfigMerge           = errors.New("Couldn't merges configs..")
+
+	ErrBadURLHTTPResposne = errors.New("URL response was not OK (200)..")
+	ErrBadURLConfig       = errors.New("URL config couldn't be read..")
+	ErrBadURLRequest      = errors.New("URL couldn't be reached..")
+	ErrBadURLResponse     = errors.New("URL response couldn't be read..")
+
+	ErrNoConfigDefined   = errors.New("No config was found..")
+	ErrNoTemplateDefined = errors.New("No template was found..")
 )
 
 func Stop(errMessage error) {

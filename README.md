@@ -33,20 +33,59 @@ Flags:
 
 ## 📋 Example
 
-```yaml
-# values.yml
-Base: alpine
+[link](./dustomize.yaml)
 
-command:
-  ls: ls -la
-# ...
+```yaml
+# dustomize.yaml
+options:
+  displayValues: false # true = display appended values when parsing
+
+import:
+  fromFile:
+    - example/values.yaml
+    - example/values2.yaml
+    - example/values3.yaml
+  fromUrl:
+    - https://run.mocky.io/v3/897c32b8-bf7c-40b4-ace6-2b6d5f68f6ac
+    - https://run.mocky.io/v3/7456b035-f644-4ed2-b6c4-e777a9871d7d
+    - https://run.mocky.io/v3/18543c68-c50b-464e-a130-86c2bf4574c7
+  fromText: |
+    Base: alpine
+
+    command:
+      copy: cp
+      delete: rm
+      add: touch
+
+    lines:
+      one: this is line number one
+      two: this is line number two
+      three: this is line number three
+      four: this is line number four
+
+    Attended: true
+
+export:
+  - template: example/templates/dockerfiles/Dockerfile
+    target: example/outputs/dockerfiles/Dockerfile
+    description: first example..
+
+  - template: example/templates/dockerfiles/app1.Dockerfile
+    target: example/outputs/dockerfiles/app1.Dockerfile
+    description: second example..
+
+  - template: example/templates/dockerfiles/app2.Dockerfile
+    target: example/outputs/dockerfiles/app2.Dockerfile
+
+  - template: example/templates/texts/TEST.MD
+    target: example/outputs/texts/TEST.MD
 ```
 
 ```Dockerfile
-# Dockerfile
+# Dockerfile - before
 FROM {{ .Base }}
-FROM {{ .command.ls }}
-RUN the date today is: {{ now | htmlDate }}
+RUN apt install {{ .git.packageName }}={{ .git.packageVersion }}
+RUN echo {{ randAlphaNum 20 }}
 ```
 
 ```go
@@ -54,7 +93,14 @@ RUN the date today is: {{ now | htmlDate }}
 go install .
 
 // Run the CLI
-dustomize parse -c example/values.yaml -k example/dockerfiles/templates/
+dustomize parse // reads local config
+```
+
+```Dockerfile
+# Dockerfile - after
+FROM alpine
+RUN apt install git=1:2.9.3-1
+RUN echo gN5mBamkiCzMTycytuwC
 ```
 
 ## ℹ️️ Requirements

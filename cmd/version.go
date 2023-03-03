@@ -1,5 +1,5 @@
 /*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
+Copyright © 2023 Erez Mizrahi <erez.mizrahi@develeap.com>
 */
 package cmd
 
@@ -10,6 +10,7 @@ import (
 )
 
 // versionCmd represents the version command
+// TODO: implement
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print the version number of dustomize",

@@ -1,10 +1,3 @@
-Base: alpine
-
-command:
-  copy: cp
-  delete: rm
-  add: touch
-
 lines:
   one: this is line number one
   two: this is line number two
