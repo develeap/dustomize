@@ -5,9 +5,8 @@ package cmd
 
 import (
 	"fmt"
+	"io/fs"
 	"io/ioutil"
-	"log"
-	"os"
 
 	"github.com/develeap/dustomize/file"
 	"github.com/develeap/dustomize/internal"
@@ -15,7 +14,8 @@ import (
 )
 
 var (
-	files []file.File
+	readWritePermission fs.FileMode = 0644
+	files               []file.File
 
 	// Config file (YAML) reader
 	m map[interface{}]interface{}
@@ -52,40 +52,39 @@ func parse(cmd *cobra.Command, args []string) {
 	var err error
 
 	if configFlag == "" {
-		panic("Values file must be selected..")
+		internal.Stop(internal.ErrNoConfigFile)
 	}
 
 	if len(filesFlag) != 0 && folderFlag != "" {
-		fmt.Println("-f and -k flags cannot be used together..")
-		os.Exit(1)
+		internal.Stop(internal.ErrBothFileAndFolderDefined)
 	}
 
 	if len(filesFlag) == 0 && folderFlag == "" {
-		panic("Either one of the flags -f or -k must be set..")
+		internal.Stop(internal.ErrNoFileOrFolderDefined)
 	}
 
 	m, err = internal.ReadConfigFromFile(configFlag)
 	if err != nil {
-		panic(err)
+		internal.StopWithDebug(internal.ErrBadConfig, err)
 	}
 
 	if folderFlag != "" {
-		err := file.FolderRead(folderFlag, &files, false)
+		err := file.FolderRead(folderFlag, &files)
 		if err != nil {
-			panic(err)
+			internal.StopWithDebug(internal.ErrBadFolder, err)
 		}
 	}
 
 	if len(filesFlag) > 0 {
 		for _, v := range filesFlag {
-			file.FileRead(v, &files, false)
+			file.FileRead(v, &files)
 		}
 	}
 
 	for _, f := range files {
 		res, err := internal.ParseFile(f.Path, f.Content, m)
 		if err != nil {
-			panic(err)
+			internal.StopWithDebug(internal.ErrBadFile, err)
 		}
 
 		// Do not export, just print
@@ -94,9 +93,9 @@ func parse(cmd *cobra.Command, args []string) {
 			return
 		}
 
-		err = ioutil.WriteFile((outputPathFlag + "/" + f.Name), []byte(res), 0644)
+		err = ioutil.WriteFile((outputPathFlag + "/" + f.Name), []byte(res), readWritePermission)
 		if err != nil {
-			log.Fatal(err)
+			internal.StopWithDebug(internal.ErrBadExport, err)
 		}
 	}
 }

@@ -22,16 +22,11 @@ lint:
 
 test:
     FROM +deps
+    RUN go install gotest.tools/gotestsum@latest
     COPY . ./
-    RUN go test -v ./...
+    RUN gotestsum --format pkgname
 
 build:
     FROM +deps
     COPY . ./
     RUN go build .
-    # SAVE ARTIFACT dustomize AS LOCAL dustomize
-
-# docker:
-#     COPY +build/example .
-#     ENTRYPOINT ["/go-workdir/example"]
-#     SAVE IMAGE go-example:latest

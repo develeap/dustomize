@@ -18,7 +18,7 @@ func TestFolderRead(t *testing.T) {
 	numOfFilesInTestFolder := len(files)
 
 	t.Run("TestFolderRead", func(t *testing.T) {
-		err := FolderRead(testFolder, &filesSlice, false)
+		err := FolderRead(testFolder, &filesSlice)
 
 		if err != nil {
 			t.Errorf("folder %s couldn't be read! (%s)", testFolder, err)

@@ -6,6 +6,9 @@ on:
       - main
   pull_request:
 
+env:
+  EARTHLY_VERSION: v0.7.0
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -14,7 +17,7 @@ jobs:
 
       - uses: earthly/actions-setup@v1
         with:
-          version: v0.7.0
+          version: $EARTHLY_VERSION
 
       - name: Run lint
         run: earthly +lint
@@ -26,7 +29,7 @@ jobs:
 
       - uses: earthly/actions-setup@v1
         with:
-          version: v0.7.0
+          version: $EARTHLY_VERSION
 
       - name: Run test
         run: earthly +test
@@ -39,7 +42,7 @@ jobs:
 
       - uses: earthly/actions-setup@v1
         with:
-          version: v0.7.0
+          version: $EARTHLY_VERSION
 
       - name: Run build
         run: earthly +build
@@ -51,24 +54,3 @@ jobs:
     steps:
       - name: Run this step on main branch only
         run: echo "This step is running on the main branch"
-
-  # build:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-
-  #     - name: Set up Go
-  #       uses: actions/setup-go@v3
-  #       with:
-  #         go-version: "1.20.0"
-
-  #     - run: go version
-
-  #     - name: Install dependencies
-  #       run: go get -d -v ./...
-
-  #     - name: Test
-  #       run: go test -v ./...
-
-  #     - name: Build
-  #       run: go build -v .

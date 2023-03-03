@@ -4,3 +4,11 @@ command:
   copy: cp
   delete: rm
   add: touch
+
+lines:
+  one: this is line number one
+  two: this is line number two
+  three: this is line number three
+  four: this is line number four
+
+Attended: true
