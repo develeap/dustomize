@@ -37,15 +37,15 @@ Flags:
 Base: alpine
 
 command:
-  copy: cp
-  delete: rm
-  add: touch
+  ls: ls -la
+# ...
 ```
 
 ```Dockerfile
 # Dockerfile
 FROM {{ .Base }}
-RUN ls -la
+FROM {{ .command.ls }}
+RUN the date today is: {{ now | htmlDate }}
 ```
 
 ```go
