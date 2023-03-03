@@ -15,6 +15,7 @@ Unsafe content: {{ .Attended }}
 {{ end }}
 
 {{ template "LAYOUT" . }}
+{{ .Animal }}
 
 <!-- {{- range .lines}}
 {{.}}

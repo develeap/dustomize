@@ -14,8 +14,7 @@ to quickly create a Cobra application.
 ### Options
 
 ```
-  -h, --help     help for dustomize
-  -t, --toggle   Help message for toggle
+  -h, --help   help for dustomize
 ```
 
 ### SEE ALSO
