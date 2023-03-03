@@ -1,5 +1,10 @@
 # dustomize - Dockerfile templates
 
+![AppVeyor branch](https://img.shields.io/appveyor/build/develeap/dustomize/main)
+![GitHub repo size](https://img.shields.io/github/repo-size/develeap/dustomize)
+![Bitbucket open issues](https://img.shields.io/bitbucket/issues-raw/develeap/dustomize)
+![GitHub all releases](https://img.shields.io/github/downloads/develeap/dustomize/total)
+
 <img src="https://d1.awsstatic.com/acs/characters/Logos/Docker-Logo_Horizontel_279x131.b8a5c41e56b77706656d61080f6a0217a3ba356d.png" width="300px">
 
 This project is used to create powerful templates within Dockerfiles
