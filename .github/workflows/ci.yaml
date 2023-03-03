@@ -3,30 +3,54 @@ name: CI
 on:
   push:
     branches:
-      - "main"
+      - main
   pull_request:
-    branches:
-      - "main"
+
+env:
+  EARTHLY_VERSION: v0.7.0
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Go
-        uses: actions/setup-go@v3
+      - uses: earthly/actions-setup@v1
         with:
-          go-version: "1.20.0"
-          check-latest: true
+          version: ${{ env.EARTHLY_VERSION }}
 
-      - run: go version
+      - name: Run lint
+        run: earthly +lint
 
-      - name: Install dependencies
-        run: go get -d -v ./...
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-      - name: Test
-        run: go test -v ./...
+      - uses: earthly/actions-setup@v1
+        with:
+          version: ${{ env.EARTHLY_VERSION }}
 
-      - name: Build
-        run: go build -v .
+      - name: Run test
+        run: earthly +test
+
+  build:
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: earthly/actions-setup@v1
+        with:
+          version: ${{ env.EARTHLY_VERSION }}
+
+      - name: Run build
+        run: earthly +build
+
+  release:
+    if: github.ref == 'refs/heads/main'
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run this step on main branch only
+        run: echo "This step is running on the main branch"

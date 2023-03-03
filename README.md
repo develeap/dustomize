@@ -1,5 +1,11 @@
 # dustomize - Dockerfile templates
 
+![GitHub Actions CI](https://github.com/develeap/dustomize/actions/workflows/ci.yaml/badge.svg?branch=main)
+![GitHub repo size](https://img.shields.io/github/repo-size/develeap/dustomize)
+![Bitbucket open issues](https://img.shields.io/bitbucket/issues-raw/develeap/dustomize)
+![GitHub all releases](https://img.shields.io/github/downloads/develeap/dustomize/total)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
 <img src="https://d1.awsstatic.com/acs/characters/Logos/Docker-Logo_Horizontel_279x131.b8a5c41e56b77706656d61080f6a0217a3ba356d.png" width="300px">
 
 This project is used to create powerful templates within Dockerfiles
@@ -7,17 +13,22 @@ This project is used to create powerful templates within Dockerfiles
 ## ⏏️ Options
 
 ```go
-Usage of dustomize:
-  -config string
-        Config definition
-  -export bool
-        Enable to export the resulted files
-  -folder string
-        Folder to parse
-  -output string
-        Output folder
-  -verbose bool
-        Enable to view logs
+A longer description that spans multiple lines and likely contains examples
+and usage of using your command. For example:
+
+Cobra is a CLI library for Go that empowers applications.
+This application is a tool to generate the needed files
+to quickly create a Cobra application.
+
+Usage:
+  dustomize parse [flags]
+
+Flags:
+  -c, --config string   Values file to read from.
+  -f, --file strings    Template files to parse.
+  -k, --folder string   Your templates directory to parse.
+  -h, --help            help for parse
+  -o, --output string   Export parsing to target folder.
 ```
 
 ## 📋 Example
@@ -27,20 +38,23 @@ Usage of dustomize:
 Base: alpine
 
 command:
-  copy: cp
-  delete: rm
-  add: touch
+  ls: ls -la
+# ...
 ```
 
 ```Dockerfile
 # Dockerfile
 FROM {{ .Base }}
-RUN ls -la
+FROM {{ .command.ls }}
+RUN the date today is: {{ now | htmlDate }}
 ```
 
 ```go
-// terminal command (root dir)
-go run . -folder example/dockerfiles/templates/ -config example/values.yaml -export -output example/dockerfiles/outputs
+// Install the CLI
+go install .
+
+// Run the CLI
+dustomize parse -c example/values.yaml -k example/dockerfiles/templates/
 ```
 
 ## ℹ️️ Requirements
@@ -54,10 +68,6 @@ This is an open source project. Any contribution would be greatly appreciated!
 ## 🚩 Issues
 
 If you have found an issue, please report it on the [issue tracker](https://github.com/develeap/dustomize/issues)
-
-## 📝 LICENSE
-
-License is MIT
 
 ## Made with ❤️ in develeap
 
