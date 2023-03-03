@@ -40,7 +40,7 @@ to quickly create a Cobra application.`,
 }
 
 func init() {
-	rootCmd.AddCommand(parseCmd)
+	RootCmd.AddCommand(parseCmd)
 
 	parseCmd.Flags().StringVarP(&configFlag, "config", "c", "", "Values file to read from.")
 	parseCmd.Flags().StringSliceVarP(&filesFlag, "file", "f", []string{}, "Template files to parse.")
